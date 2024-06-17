@@ -234,12 +234,16 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ]
 }
+import dj_database_url
 
 DATABASES = {
-    'default': dj_database_url.parse(
-        "postgres://carpool_3zkn_user:ivboZcIUSlMyhqiChBBeYAfl60cSPjUG@dpg-cpilnga1hbls73bj3p30-a.oregon-postgres.render.com/carpool_3zkn"
+    'default': dj_database_url.config(
+        default="postgres://carpool_3zkn_user:ivboZcIUSlMyhqiChBBeYAfl60cSPjUG@dpg-cpilnga1hbls73bj3p30-a.oregon-postgres.render.com/carpool_3zkn",
+        conn_max_age=600,
+        ssl_require=True
     )
 }
+
 
 
 CORS_ALLOWED_ORIGINS = [
