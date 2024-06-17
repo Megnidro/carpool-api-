@@ -25,18 +25,17 @@ from rest_framework.routers import DefaultRouter
 from accounts.views import AddressViewSet
 
 schema_view = get_schema_view(
-   openapi.Info(
-      title="Carpool Covoiturage API",
-      default_version='v1',
-      description="Test description",
-      terms_of_service="https://www.litslab.net/policies/terms/",
-      contact=openapi.Contact(email="dmegnidro@litslab.net"),
-      license=openapi.License(name="Opensource"),
-   ),
-   public=True,
-   permission_classes=(permissions.AllowAny,),
+    openapi.Info(
+        title="Carpool Covoiturage API",
+        default_version='v1',
+        description="Test description",
+        terms_of_service="https://www.litslab.net/policies/terms/",
+        contact=openapi.Contact(email="dmegnidro@litslab.net"),
+        license=openapi.License(name="Opensource"),
+    ),
+    public=True,
+    permission_classes=(permissions.AllowAny,),
 )
-
 
 router = DefaultRouter()
 router.register(r'addresses', AddressViewSet, basename='addresses')
@@ -45,7 +44,7 @@ urlpatterns = [
     path('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('docs/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-    path('admin/', admin.site.urls),
+    #path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
     path('', include(router.urls)),
 ]
