@@ -238,7 +238,7 @@ import dj_database_url
 
 DATABASES = {
     'default': dj_database_url.config(
-        default="postgres://carpool_3zkn_user:ivboZcIUSlMyhqiChBBeYAfl60cSPjUG@dpg-cpilnga1hbls73bj3p30-a.oregon-postgres.render.com/carpool_3zkn",
+        default="postgres://api_db_ch90_user:2biMYlqpCKHtIt8R7rmwM1WXcVJMU8ld@dpg-cpoaulbv2p9s73dr103g-a.oregon-postgres.render.com/api_db_ch90",
         conn_max_age=600,
         ssl_require=True
     )
