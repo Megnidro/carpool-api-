@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-5i+m(rfe*fcyz#nfn685kt5q*@kv-*+3*-0)nr*hmlsy*ogtf3
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
@@ -50,7 +50,8 @@ INSTALLED_APPS = [
     'impostor',
     'drf_api_logger',
     'drf_generators',
-    'drf_scaffold'
+    'drf_scaffold',
+    'corsheaders',
 
 ]
 
@@ -63,6 +64,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'allauth.account.middleware.AccountMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'corsheaders.middleware.CorsMiddleware',  # Ajoutez cette ligne
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'drf_api_logger.middleware.api_logger_middleware.APILoggerMiddleware',  # Add here
 
@@ -239,3 +241,15 @@ DATABASES = {
         default="postgres://carpool_3zkn_user:ivboZcIUSlMyhqiChBBeYAfl60cSPjUG@dpg-cpilnga1hbls73bj3p30-a.oregon"
                 "-postgres.render.com/carpool_3zkn"
     )}
+
+
+CORS_ALLOWED_ORIGINS = [
+    "https://example.com",
+    "https://sous.example.com",
+    "http://localhost:8000",
+    "http://localhost:5368",  # URL de l'app Flutter en local
+
+]
+
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
