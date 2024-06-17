@@ -237,7 +237,7 @@ REST_FRAMEWORK = {
 
 DATABASES = {
     'default': dj_database_url.parse(
-        "postgres://politique_user:pBqp2xxdc41i91mgHTTjU04DHMGSsoRn@dpg-cpoaiho8fa8c73e3cndg-a.oregon-postgres.render.com/politique"
+        "postgres://carpool_3zkn_user:ivboZcIUSlMyhqiChBBeYAfl60cSPjUG@dpg-cpilnga1hbls73bj3p30-a.oregon-postgres.render.com/carpool_3zkn"
     )
 }
 
