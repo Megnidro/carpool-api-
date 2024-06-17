@@ -27,11 +27,7 @@ SECRET_KEY = 'django-insecure-5i+m(rfe*fcyz#nfn685kt5q*@kv-*+3*-0)nr*hmlsy*ogtf3
 DEBUG = True
 
 
-ALLOWED_HOSTS = [
-    "http://localhost:8000",
-    "https://carpool-api.onrender.com/",
-    "http://localhost:53608",
-]
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
