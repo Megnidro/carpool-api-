@@ -1,0 +1,4 @@
+
+
+def permissions(user):
+    pass
