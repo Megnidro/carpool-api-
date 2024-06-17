@@ -235,12 +235,11 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ]
 }
-
 DATABASES = {
     'default': dj_database_url.config(
-        default="postgres://carpool_3zkn_user:ivboZcIUSlMyhqiChBBeYAfl60cSPjUG@dpg-cpilnga1hbls73bj3p30-a.oregon"
-                "-postgres.render.com/carpool_3zkn"
-    )}
+        "postgres://carpool_3zkn_user:ivboZcIUSlMyhqiChBBeYAfl60cSPjUG@dpg-cpilnga1hbls73bj3p30-a.oregon-postgres.render.com/carpool_3zkn"
+    )
+}
 
 
 CORS_ALLOWED_ORIGINS = [
