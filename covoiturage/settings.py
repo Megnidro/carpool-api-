@@ -24,7 +24,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-5i+m(rfe*fcyz#nfn685kt5q*@kv-*+3*-0)nr*hmlsy*ogtf3'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
+
 
 ALLOWED_HOSTS = ["*"]
 
@@ -248,6 +249,7 @@ DATABASES = {
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8000",
+    "https://carpool-api.onrender.com/",
     "http://localhost:53608",  # URL de l'app Flutter en local
 
 ]
