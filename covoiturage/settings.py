@@ -236,8 +236,9 @@ REST_FRAMEWORK = {
     ]
 }
 DATABASES = {
-    'default': dj_database_url.config(
-        "postgres://carpool_3zkn_user:ivboZcIUSlMyhqiChBBeYAfl60cSPjUG@dpg-cpilnga1hbls73bj3p30-a.oregon-postgres.render.com/carpool_3zkn"
+    'default': dj_database_url.parse(
+        "postgres://carpool_3zkn_user:ivboZcIUSlMyhqiChBBeYAfl60cSPjUG@dpg-cpilnga1hbls73bj3p30-a.oregon-postgres"
+        ".render.com/carpool_3zkn"
     )
 }
 
