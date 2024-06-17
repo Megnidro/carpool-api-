@@ -247,10 +247,8 @@ DATABASES = {
 
 
 CORS_ALLOWED_ORIGINS = [
-    "https://example.com",
-    "https://sous.example.com",
     "http://localhost:8000",
-    "http://localhost:5368",  # URL de l'app Flutter en local
+    "http://localhost:53608",  # URL de l'app Flutter en local
 
 ]
 
