@@ -94,12 +94,12 @@ WSGI_APPLICATION = 'covoiturage.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-DATABASES = {
+"""DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
-}
+}"""
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -234,13 +234,12 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ]
 }
-"""
+
 DATABASES = {
     'default': dj_database_url.parse(
-        "postgres://carpool_3zkn_user:ivboZcIUSlMyhqiChBBeYAfl60cSPjUG@dpg-cpilnga1hbls73bj3p30-a.oregon-postgres"
-        ".render.com/carpool_3zkn"
+        "postgres://politique_user:pBqp2xxdc41i91mgHTTjU04DHMGSsoRn@dpg-cpoaiho8fa8c73e3cndg-a.oregon-postgres.render.com/politique"
     )
-}"""
+}
 
 
 CORS_ALLOWED_ORIGINS = [
