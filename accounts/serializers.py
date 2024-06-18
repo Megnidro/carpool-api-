@@ -42,7 +42,7 @@ class AddressSchema(BaseModel):
             raise ValueError('must not be empty')
         return v
 
-
+"""
 class AddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = Address
@@ -54,4 +54,38 @@ class AddressSerializer(serializers.ModelSerializer):
             AddressSchema(**data)
         except ValidationError as e:
             raise serializers.ValidationError(e.errors())
-        return data
+        return data"""
+
+
+from rest_framework import serializers
+from .models import ProfileCustomUser, CarModel, Notification, Reclaim, Address
+
+
+class ProfileCustomUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProfileCustomUser
+        fields = '__all__'
+
+
+class CarModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CarModel
+        fields = '__all__'
+
+
+class NotificationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Notification
+        fields = '__all__'
+
+
+class ReclaimSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Reclaim
+        fields = '__all__'
+
+
+class AddressSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Address
+        fields = '__all__'

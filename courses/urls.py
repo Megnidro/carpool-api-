@@ -1,35 +1,24 @@
 from django.urls import path
-from .views import (
-    create_trip, read_trip, update_trip, delete_trip,
-    create_booking, read_booking, update_booking, delete_booking,
-    create_payment, read_payment, update_payment, delete_payment,
-    create_review, read_review, update_review, delete_review,
-    create_reward, read_reward, update_reward, delete_reward
-)
+from . import views
 
 urlpatterns = [
-    path('trips/', create_trip, name='create_trip'),
-    path('trips/<int:trip_id>/', read_trip, name='read_trip'),
-    path('trips/<int:trip_id>/update/', update_trip, name='update_trip'),
-    path('trips/<int:trip_id>/delete/', delete_trip, name='delete_trip'),
+    # URLs for Trip model
+    path('trips/', views.TripListCreateAPIView.as_view(), name='trip-list-create'),
+    path('trips/<int:pk>/', views.TripDetailAPIView.as_view(), name='trip-detail'),
 
-    path('bookings/', create_booking, name='create_booking'),
-    path('bookings/<int:booking_id>/', read_booking, name='read_booking'),
-    path('bookings/<int:booking_id>/update/', update_booking, name='update_booking'),
-    path('bookings/<int:booking_id>/delete/', delete_booking, name='delete_booking'),
+    # URLs for Booking model
+    path('bookings/', views.BookingListCreateAPIView.as_view(), name='booking-list-create'),
+    path('bookings/<int:pk>/', views.BookingDetailAPIView.as_view(), name='booking-detail'),
 
-    path('payments/', create_payment, name='create_payment'),
-    path('payments/<int:payment_id>/', read_payment, name='read_payment'),
-    path('payments/<int:payment_id>/update/', update_payment, name='update_payment'),
-    path('payments/<int:payment_id>/delete/', delete_payment, name='delete_payment'),
+    # URLs for PaymentDriverBooking model
+    path('payments/', views.PaymentDriverBookingListCreateAPIView.as_view(), name='payment-list-create'),
+    path('payments/<int:pk>/', views.PaymentDriverBookingDetailAPIView.as_view(), name='payment-detail'),
 
-    path('reviews/', create_review, name='create_review'),
-    path('reviews/<int:review_id>/', read_review, name='read_review'),
-    path('reviews/<int:review_id>/update/', update_review, name='update_review'),
-    path('reviews/<int:review_id>/delete/', delete_review, name='delete_review'),
+    # URLs for ReviewTrip model
+    path('reviews/', views.ReviewTripListCreateAPIView.as_view(), name='review-list-create'),
+    path('reviews/<int:pk>/', views.ReviewTripDetailAPIView.as_view(), name='review-detail'),
 
-    path('rewards/', create_reward, name='create_reward'),
-    path('rewards/<int:reward_id>/', read_reward, name='read_reward'),
-    path('rewards/<int:reward_id>/update/', update_reward, name='update_reward'),
-    path('rewards/<int:reward_id>/delete/', delete_reward, name='delete_reward'),
+    # URLs for Reward model
+    path('rewards/', views.RewardListCreateAPIView.as_view(), name='reward-list-create'),
+    path('rewards/<int:pk>/', views.RewardDetailAPIView.as_view(), name='reward-detail'),
 ]
