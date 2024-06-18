@@ -1,10 +1,12 @@
 from django.urls import path
 from . import views
+from .views import TripSearchAPIView
 
 urlpatterns = [
     # URLs for Trip model
     path('trips/', views.TripListCreateAPIView.as_view(), name='trip-list-create'),
     path('trips/<int:pk>/', views.TripDetailAPIView.as_view(), name='trip-detail'),
+    path('trips/search/', TripSearchAPIView.as_view(), name='trip-search'),
 
     # URLs for Booking model
     path('bookings/', views.BookingListCreateAPIView.as_view(), name='booking-list-create'),

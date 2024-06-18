@@ -26,7 +26,6 @@ SECRET_KEY = 'django-insecure-5i+m(rfe*fcyz#nfn685kt5q*@kv-*+3*-0)nr*hmlsy*ogtf3
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-
 ALLOWED_HOSTS = ["*"]
 
 # Application definition
@@ -245,8 +244,6 @@ DATABASES = {
     )
 }
 
-
-
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8000",
     'https://carpool-api.onrender.com',  # Correction ici
@@ -256,3 +253,9 @@ CORS_ALLOWED_ORIGINS = [
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
+
+
+import django
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'covoiturage.settings')
+django.setup()
+
