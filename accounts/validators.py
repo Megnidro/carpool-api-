@@ -1,5 +1,4 @@
 import datetime
-
 from pydantic import BaseModel, EmailStr, validator, constr
 from datetime import date
 from typing import Optional
@@ -33,7 +32,7 @@ class CustomUserValidator(BaseModel):
 class ProfileCustomUserValidator(BaseModel):
     user: int
     avatar: str = 'default.jpg'
-    birth_date: Optional[date] = None
+    birth_date: date
     genre: Optional[str] = None
     phone_number: str
     num_permis: str
@@ -41,6 +40,9 @@ class ProfileCustomUserValidator(BaseModel):
     category: str
     date_delivrance: Optional[date] = None
     date_expiration: Optional[date] = None
+
+    class Config:
+        arbitrary_types_allowed = True
 
     @validator('birth_date')
     def validate_birth_date(cls, v):
@@ -101,8 +103,11 @@ class AddressValidator(BaseModel):
 
 class ReclaimValidator(BaseModel):
     owner: int
-    date: Optional[datetime] = None
+    date: date
     reason: str
+
+    class Config:
+        arbitrary_types_allowed = True
 
     @validator('owner')
     def owner_must_exist(cls, v):
@@ -118,9 +123,11 @@ class ReclaimValidator(BaseModel):
 class NotificationValidator(BaseModel):
     sender: int
     receiver: int
-    date: Optional[datetime] = None
+    date: date
     message: str
     status: Optional[str] = "unread"
+    class Config:
+        arbitrary_types_allowed = True
 
     @validator('sender', 'receiver')
     def user_must_exist(cls, v):

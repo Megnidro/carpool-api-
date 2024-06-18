@@ -249,7 +249,7 @@ DATABASES = {
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8000",
-    "https://carpool-api.onrender.com/",
+    'https://carpool-api.onrender.com',  # Correction ici
     "http://localhost:53608",  # URL de l'app Flutter en local
 
 ]

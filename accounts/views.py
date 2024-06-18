@@ -13,6 +13,10 @@ from .permissions import IsDriverOrBoth, IsPassenger
 @permission_classes([IsDriverOrBoth])
 def create_user(request):
     user_data = request.data
+    data = {
+        'username': 'john_doe',
+        'birthdate': '1990-01-01',  # Example date format
+    }
     try:
         validator = CustomUserValidator(**user_data)
         validator.dict()
