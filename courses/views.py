@@ -111,7 +111,7 @@ class TripSearchAPIView(APIView):
 
     def post(self, request):
         # Récupérer les données du corps de la requête POST
-        start_location = request.data.get('start_location', '')
+        start_location = request.data.get('start_location', None)
         end_location = request.data.get('end_location', '')
         min_seats = request.data.get('min_seats', None)
         max_seats = request.data.get('max_seats', None)
