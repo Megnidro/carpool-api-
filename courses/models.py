@@ -17,17 +17,17 @@ class Trip(models.Model):
         ('COMPLETED', 'COMPLETED'),
         ('CANCELLED', 'CANCELLED'),
     )
-    driver = models.ForeignKey(ProfileCustomUser, on_delete=models.CASCADE)
-    car = models.ForeignKey(CarModel, on_delete=models.CASCADE, related_name='trips')
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='PENDING')
-    start_location = models.CharField(max_length=100)
-    end_location = models.CharField(max_length=100)
-    start_time = models.DateTimeField()
-    end_time = models.DateTimeField()
-    seats = models.IntegerField()
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    distance = models.FloatField()
+    driver = models.ForeignKey(ProfileCustomUser, on_delete=models.CASCADE, null=True, blank=True)
+    car = models.ForeignKey(CarModel, on_delete=models.CASCADE, related_name='trips', null=True, blank=True)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='PENDING', blank=True, null=True)
+    start_location = models.CharField(max_length=100, blank=True, null=True)
+    end_location = models.CharField(max_length=100, blank=True, null=True)
+    start_time = models.DateTimeField(null=True, blank=True)
+    end_time = models.DateTimeField(null=True, blank=True)
+    seats = models.IntegerField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
+    distance = models.FloatField(null=True, blank=True)
 
     class Meta:
         unique_together = (('driver', 'car'),)
