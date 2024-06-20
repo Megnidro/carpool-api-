@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'drf_generators',
     'drf_scaffold',
     'corsheaders',
+    'django_seed'
 
 ]
 

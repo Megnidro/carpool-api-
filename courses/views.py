@@ -133,3 +133,4 @@ class TripSearchAPIView(APIView):
 
         # Retourner la réponse JSON avec les données filtrées
         return Response(serializer.data, status=status.HTTP_200_OK)
+        
