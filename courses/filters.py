@@ -17,7 +17,6 @@ class TripFilter(django_filters.FilterSet):
             'start_location': ['icontains'],
             'end_location': ['icontains'],
             'seats': ['exact', 'gte', 'lte'],
-            'distance': ['exact', 'gte', 'lte'],
             'driver': ['exact'],
             'car': ['exact'],
         }
