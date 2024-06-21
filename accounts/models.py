@@ -45,9 +45,9 @@ class CustomUserManager(BaseUserManager):
 
 
 class UserRole(Enum):
-    DRIVER = 'driver'
-    PASSENGER = 'passenger'
-    BOTH = 'both'
+    DRIVER = 'DRIVER'
+    PASSENGER = 'PASSENGER'
+    BOTH = 'BOTH'
 
 
 class CustomUser(AbstractBaseUser):
@@ -111,7 +111,7 @@ class CarModel(models.Model):
         return self.make
 
     def validate_owner(self, owner):
-        if self.owner.ProfileCustomUser.role == 'both' or self.owner.ProfileCustomUser.role == 'driver':
+        if self.owner.ProfileCustomUser.role == 'BOTH' or self.owner.ProfileCustomUser.role == 'DRIVER':
             return True
         else:
             return f'{self.owner} must be driver or both to create a car'
@@ -153,5 +153,4 @@ class Address(models.Model):
         verbose_name = 'Address'
         verbose_name_plural = 'Addresses'
         ordering = ['-position_name']
-        constraints = [models.UniqueConstraint(fields=['number', 'street', 'city', 'region', 'country'],
-                                               name='unique_address')]
+        #constraints = [models.UniqueConstraint(fields=['number', 'street', 'city', 'region', 'country'])]
