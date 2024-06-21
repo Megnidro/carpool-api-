@@ -54,13 +54,9 @@ class CarModelSerializers(serializers.ModelSerializer):
         fields = ['id', 'make', 'model', 'year', 'color', 'licence_number', 'is_active']
         read_only_fields = ['owner']
 
-
+"""
 class CarModelCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = CarModel
         fields = ['make', 'model', 'year', 'color', 'licence_number']
-
-    def create(self, validated_data):
-        user_profile = self.context['request'].user.profilecustomuser
-        car = CarModel.objects.create(owner=user_profile, **validated_data)
-        return car
+"""
