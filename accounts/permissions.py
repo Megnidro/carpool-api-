@@ -1,14 +1,13 @@
-from rest_framework.permissions import BasePermission
+from rest_framework import permissions
 
+class IsOwnerOrReadOnly(permissions.BasePermission):
+    """
+    Permission personnalisée pour autoriser uniquement les propriétaires à modifier ou supprimer l'objet.
+    """
+    def has_object_permission(self, request, view, obj):
+        # Les autorisations de lecture sont autorisées pour n'importe qui, donc nous autorisons toujours GET, HEAD, ou OPTIONS.
+        if request.method in permissions.SAFE_METHODS:
+            return True
 
-class IsDriverOrBoth(BasePermission):
-    def has_permission(self, request, view):
-        if request.user.is_authenticated:
-            return request.user.profilecustomuser.role in ['DRIVER', 'BOTH']
-        else:
-            return False
-
-
-class IsPassenger(BasePermission):
-    def has_permission(self, request, view):
-        return request.user.profilecustomuser.role == 'PASSENGER'
+        # L'utilisateur doit être le propriétaire de l'objet pour pouvoir effectuer des modifications.
+        return obj.owner == request.user
