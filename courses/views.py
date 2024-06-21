@@ -15,7 +15,6 @@ from .serializers import (
     ReviewTripSerializer,
     RewardSerializer, CarModelCreateSerializer,
 )
-from .permissions import IsDriverOrBoth, IsPassengerOrBoth, IsPassenger
 from accounts.models import CarModel
 
 from accounts.serializers import CarModelSerializer
