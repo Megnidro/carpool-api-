@@ -153,4 +153,3 @@ class Address(models.Model):
         verbose_name = 'Address'
         verbose_name_plural = 'Addresses'
         ordering = ['-position_name']
-        #constraints = [models.UniqueConstraint(fields=['number', 'street', 'city', 'region', 'country'])]
