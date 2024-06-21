@@ -1,6 +1,6 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics, permissions
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -20,10 +20,9 @@ from .permissions import IsDriverOrBoth, IsPassengerOrBoth, IsPassenger
 class TripListCreateAPIView(generics.ListCreateAPIView):
     queryset = Trip.objects.all()
     serializer_class = TripSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     filter_backends = [DjangoFilterBackend]
     filterset_class = TripFilter
-
 
     def perform_create(self, serializer):
         serializer.save(driver=self.request.user.profilecustomuser.customuser.last_name)
@@ -138,4 +137,3 @@ class TripSearchAPIView(APIView):
 
         # Retourner la réponse JSON avec les données filtrées
         return Response(serializer.data, status=status.HTTP_200_OK)
-        
