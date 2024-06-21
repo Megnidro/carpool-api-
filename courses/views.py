@@ -31,13 +31,13 @@ class TripListCreateAPIView(generics.ListCreateAPIView):
 class TripDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Trip.objects.all()
     serializer_class = TripSerializer
-    permission_classes = [permissions.IsAuthenticated, IsDriverOrBoth]
+    permission_classes = [AllowAny]
 
 
 class BookingListCreateAPIView(generics.ListCreateAPIView):
     queryset = Booking.objects.all()
     serializer_class = BookingSerializer
-    permission_classes = [permissions.IsAuthenticated, IsPassengerOrBoth]
+    permission_classes = [AllowAny]
 
     def perform_create(self, serializer):
         serializer.save(passengers=self.request.user.profilecustomuser)
@@ -46,25 +46,25 @@ class BookingListCreateAPIView(generics.ListCreateAPIView):
 class BookingDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Booking.objects.all()
     serializer_class = BookingSerializer
-    permission_classes = [permissions.IsAuthenticated, IsPassengerOrBoth]
+    permission_classes = [AllowAny]
 
 
 class PaymentDriverBookingListCreateAPIView(generics.ListCreateAPIView):
     queryset = PaymentDriverBooking.objects.all()
     serializer_class = PaymentDriverBookingSerializer
-    permission_classes = [permissions.IsAuthenticated, IsDriverOrBoth]
+    permission_classes = [AllowAny]
 
 
 class PaymentDriverBookingDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = PaymentDriverBooking.objects.all()
     serializer_class = PaymentDriverBookingSerializer
-    permission_classes = [permissions.IsAuthenticated, IsDriverOrBoth]
+    permission_classes = [AllowAny]
 
 
 class ReviewTripListCreateAPIView(generics.ListCreateAPIView):
     queryset = ReviewTrip.objects.all()
     serializer_class = ReviewTripSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [AllowAny]
 
     def perform_create(self, serializer):
         serializer.save(reviewer=self.request.user.profilecustomuser)
@@ -73,19 +73,19 @@ class ReviewTripListCreateAPIView(generics.ListCreateAPIView):
 class ReviewTripDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = ReviewTrip.objects.all()
     serializer_class = ReviewTripSerializer
-    permission_classes = [permissions.IsAuthenticated, IsPassengerOrBoth]
+    permission_classes = [AllowAny]
 
 
 class RewardListCreateAPIView(generics.ListCreateAPIView):
     queryset = Reward.objects.all()
     serializer_class = RewardSerializer
-    permission_classes = [permissions.IsAuthenticated, IsDriverOrBoth]
+    permission_classes = [AllowAny]
 
 
 class RewardDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Reward.objects.all()
     serializer_class = RewardSerializer
-    permission_classes = [permissions.IsAuthenticated, IsDriverOrBoth]
+    permission_classes = [AllowAny]
 
 
 class TripSearchAPIView(APIView):
