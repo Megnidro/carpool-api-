@@ -45,7 +45,7 @@ class Trip(models.Model):
         return f'{self.car} - {self.driver} - {self.start_location} - {self.end_location}'
 
     def validate_driver(self):
-        if self.driver.ProfileCustomUser.role == 'driver':
+        if self.driver.ProfileCustomUser.role == 'DRIVER':
             return True
         else:
             return (f'{self.driver.ProfileCustomUser.role} you must a driver to create this trip. Please contact your '

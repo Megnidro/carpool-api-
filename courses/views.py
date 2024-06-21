@@ -1,9 +1,11 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics, permissions
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
+from .filters import TripFilter
 from .models import Trip, Booking, PaymentDriverBooking, ReviewTrip, Reward
 from .serializers import (
     TripSerializer,
@@ -19,6 +21,9 @@ class TripListCreateAPIView(generics.ListCreateAPIView):
     queryset = Trip.objects.all()
     serializer_class = TripSerializer
     permission_classes = [IsAuthenticated]
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = TripFilter
+
 
     def perform_create(self, serializer):
         serializer.save(driver=self.request.user.profilecustomuser.customuser.last_name)
