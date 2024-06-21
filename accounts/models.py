@@ -24,14 +24,6 @@ class Address(models.Model):
     def __str__(self):
         return f"{self.number} {self.street}, {self.city}, {self.region}, {self.country}"
 
-    class Meta:
-        indexes = (models.Index(fields=['position_name']),)
-        unique_together = (('number', 'street', 'city', 'region', 'country'),)
-        db_table = 'address'
-        verbose_name = 'Address'
-        verbose_name_plural = 'Addresses'
-        ordering = ['-position_name']
-
 
 class CarModel(models.Model):
     make = models.CharField(max_length=100, blank=True, null=True)
@@ -126,8 +118,10 @@ class ProfileCustomUser(models.Model):
     num_permis = models.CharField(max_length=20, unique=True)
     role = models.CharField(max_length=10, choices=[(role.value, role.name) for role in UserRole])
     category = models.CharField(max_length=1, choices=CATEGORIES)
-    address = models.ForeignKey(Address, on_delete=models.CASCADE, related_name='addresses', default=None, blank=True, null=True)
-    car = models.ForeignKey(CarModel, on_delete=models.CASCADE, related_name='cars', default=None, blank=True, null=True)
+    address = models.ForeignKey(Address, on_delete=models.CASCADE, related_name='addresses', default=None, blank=True,
+                                null=True)
+    car = models.ForeignKey(CarModel, on_delete=models.CASCADE, related_name='cars', default=None, blank=True,
+                            null=True)
 
     date_delivrance = models.DateField(default=timezone.now)
     date_expiration = models.DateField()
