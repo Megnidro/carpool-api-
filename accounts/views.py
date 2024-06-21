@@ -21,7 +21,7 @@ class ProfileCustomUserDetailAPIView(RetrieveUpdateDestroyAPIView):
 class CarModelListCreateAPIView(ListCreateAPIView):
     queryset = CarModel.objects.all()
     serializer_class = CarModelSerializer
-    permission_classes = AllowAny
+    permission_classes = [IsDriverOrBoth | IsAuthenticated]
 
 
 class CarModelDetailAPIView(RetrieveUpdateDestroyAPIView):
