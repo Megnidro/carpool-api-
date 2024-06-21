@@ -9,19 +9,19 @@ from .permissions import IsDriverOrBoth, IsPassenger
 class ProfileCustomUserListCreateAPIView(ListCreateAPIView):
     queryset = ProfileCustomUser.objects.all()
     serializer_class = ProfileCustomUserSerializer
-    permission_classes = [IsDriverOrBoth | IsAuthenticated]
+    permission_classes = [AllowAny]
 
 
 class ProfileCustomUserDetailAPIView(RetrieveUpdateDestroyAPIView):
     queryset = ProfileCustomUser.objects.all()
     serializer_class = ProfileCustomUserSerializer
-    permission_classes = [IsDriverOrBoth | IsAuthenticated]
+    permission_classes = [AllowAny]
 
 
 class CarModelListCreateAPIView(ListCreateAPIView):
     queryset = CarModel.objects.all()
     serializer_class = CarModelSerializer
-    permission_classes = [IsDriverOrBoth | IsAuthenticated]
+    permission_classes = [AllowAny]
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
@@ -35,40 +35,40 @@ class CarModelListCreateAPIView(ListCreateAPIView):
 class CarModelDetailAPIView(RetrieveUpdateDestroyAPIView):
     queryset = CarModel.objects.all()
     serializer_class = CarModelSerializer
-    permission_classes = [IsDriverOrBoth | IsAuthenticated]
+    permission_classes = [AllowAny]
 
 
 class NotificationListCreateAPIView(ListCreateAPIView):
     queryset = Notification.objects.all()
     serializer_class = NotificationSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
 
 class NotificationDetailAPIView(RetrieveUpdateDestroyAPIView):
     queryset = Notification.objects.all()
     serializer_class = NotificationSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
 
 class ReclaimListCreateAPIView(ListCreateAPIView):
     queryset = Reclaim.objects.all()
     serializer_class = ReclaimSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
 
 class ReclaimDetailAPIView(RetrieveUpdateDestroyAPIView):
     queryset = Reclaim.objects.all()
     serializer_class = ReclaimSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
 
 class AddressListCreateAPIView(ListCreateAPIView):
     queryset = Address.objects.all()
     serializer_class = AddressSerializer
-    permission_classes = [IsDriverOrBoth | IsAuthenticated, IsPassenger]
+    permission_classes = [AllowAny]
 
 
 class AddressDetailAPIView(RetrieveUpdateDestroyAPIView):
     queryset = Address.objects.all()
     serializer_class = AddressSerializer
-    permission_classes = [IsDriverOrBoth | IsAuthenticated, IsPassenger]
+    permission_classes = [AllowAny]
