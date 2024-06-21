@@ -13,10 +13,11 @@ from .serializers import (
     BookingSerializer,
     PaymentDriverBookingSerializer,
     ReviewTripSerializer,
-    RewardSerializer,
+    RewardSerializer, CarModelCreateSerializer,
 )
 from .permissions import IsDriverOrBoth, IsPassengerOrBoth, IsPassenger
 from accounts.models import CarModel
+
 from accounts.serializers import CarModelSerializer
 
 
