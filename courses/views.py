@@ -1,5 +1,6 @@
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions, viewsets
+from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -12,9 +13,11 @@ from .serializers import (
     BookingSerializer,
     PaymentDriverBookingSerializer,
     ReviewTripSerializer,
-    RewardSerializer,
+    RewardSerializer, CarModelCreateSerializer,
 )
 from .permissions import IsDriverOrBoth, IsPassengerOrBoth, IsPassenger
+from accounts.models import CarModel
+from accounts.serializers import CarModelSerializer
 
 
 class TripListCreateAPIView(generics.ListCreateAPIView):
@@ -137,3 +140,29 @@ class TripSearchAPIView(APIView):
 
         # Retourner la réponse JSON avec les données filtrées
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class CarModelViewSet(viewsets.ModelViewSet):
+    queryset = CarModel.objects.all()
+    serializer_class = CarModelSerializer
+    permission_classes = [AllowAny]
+
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return CarModelCreateSerializer
+        return CarModelSerializer
+
+    @action(detail=False, methods=['GET'])
+    def active_cars(self, request):
+        active_cars = self.get_queryset().filter(is_active=True)
+        serializer = self.get_serializer(active_cars, many=True)
+        return Response(serializer.data)
+
+    @action(detail=True, methods=['POST'])
+    def select_car(self, request, pk=None):
+        car = self.get_object()
+        # Ici, vous pouvez ajouter la logique pour sélectionner la voiture
+        # Par exemple, vous pourriez l'associer à un trajet ou simplement la marquer comme sélectionnée
+        car.is_active = True
+        car.save()
+        return Response({'status': 'Car selected'}, status=status.HTTP_200_OK)

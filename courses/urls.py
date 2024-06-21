@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import TripSearchAPIView
+from .views import TripSearchAPIView, CarModelViewSet
 
 urlpatterns = [
     # URLs for Trip model
@@ -23,4 +23,28 @@ urlpatterns = [
     # URLs for Reward model
     path('rewards/', views.RewardListCreateAPIView.as_view(), name='reward-list-create'),
     path('rewards/<int:pk>/', views.RewardDetailAPIView.as_view(), name='reward-detail'),
+
+    # Liste et création de voitures
+    path('api/cars/', CarModelViewSet.as_view({
+        'get': 'list',
+        'post': 'create'
+    }), name='car-list'),
+
+    # Détails, mise à jour et suppression d'une voiture spécifique
+    path('api/cars/<int:pk>/', CarModelViewSet.as_view({
+        'get': 'retrieve',
+        'put': 'update',
+        'patch': 'partial_update',
+        'delete': 'destroy'
+    }), name='car-detail'),
+
+    # Liste des voitures actives
+    path('api/cars/active/', CarModelViewSet.as_view({
+        'get': 'active_cars'
+    }), name='car-active'),
+
+    # Sélection d'une voiture spécifique
+    path('api/cars/<int:pk>/select/', CarModelViewSet.as_view({
+        'post': 'select_car'
+    }), name='car-select'),
 ]

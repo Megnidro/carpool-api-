@@ -1,15 +1,27 @@
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, get_object_or_404
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from .models import ProfileCustomUser, CarModel, Notification, Reclaim, Address
+from .models import ProfileCustomUser, CarModel, Notification, Reclaim, Address, CustomUser
 from .serializers import ProfileCustomUserSerializer, CarModelSerializer, NotificationSerializer, ReclaimSerializer, \
     AddressSerializer
 from .permissions import IsDriverOrBoth, IsPassenger
+from rest_framework.response import Response
 
 
 class ProfileCustomUserListCreateAPIView(ListCreateAPIView):
     queryset = ProfileCustomUser.objects.all()
     serializer_class = ProfileCustomUserSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, user_id):
+        user = get_object_or_404(CustomUser, id=user_id)
+        try:
+            profile = user.profilecustomuser
+        except ProfileCustomUser.DoesNotExist:
+            profile = ProfileCustomUser.objects.create(user=user)
+
+        # Continuez avec le reste de votre logique ici
+        serializer = ProfileCustomUserSerializer(profile)
+        return Response(serializer.data)
 
 
 class ProfileCustomUserDetailAPIView(RetrieveUpdateDestroyAPIView):
