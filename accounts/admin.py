@@ -1,4 +1,4 @@
-from django.contrib import admin
+"""from django.contrib import admin
 from unfold.admin import ModelAdmin
 from .models import CustomUser, CarModel, Notification, Reclaim, Address, ProfileCustomUser
 
@@ -74,3 +74,4 @@ class AddressAdmin(ModelAdmin):
         ('Additional Info', {'fields': ('google_maps', 'type_of_address', 'author')}),
     )
     icon = "map-pin"
+"""

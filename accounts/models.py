@@ -9,6 +9,47 @@ from enum import Enum
 from rest_framework import serializers
 
 
+class Address(models.Model):
+    position_name = models.CharField(max_length=100)
+    number = models.CharField(max_length=10, blank=True, null=True)
+    street = models.CharField(max_length=255, blank=True, null=True)
+    city = models.CharField(max_length=100)
+    region = models.CharField(max_length=100, blank=True, null=True)  # Région, état ou province
+    country = models.CharField(max_length=100)
+    postal_code = models.CharField(max_length=20, blank=True, null=True)  # Code postal
+    google_maps = models.URLField(blank=True, null=True)
+    type_of_address = models.CharField(max_length=10, blank=True, null=True,
+                                       choices=(('O', 'Office'), ('H', 'Home'), ('O', 'Other')))
+
+    def __str__(self):
+        return f"{self.number} {self.street}, {self.city}, {self.region}, {self.country}"
+
+    class Meta:
+        indexes = (models.Index(fields=['position_name']),)
+        unique_together = (('number', 'street', 'city', 'region', 'country'),)
+        db_table = 'address'
+        verbose_name = 'Address'
+        verbose_name_plural = 'Addresses'
+        ordering = ['-position_name']
+
+
+class CarModel(models.Model):
+    make = models.CharField(max_length=100, blank=True, null=True)
+    model = models.CharField(max_length=100, blank=True, null=True)
+    year = models.IntegerField(blank=True, null=True)
+    color = models.CharField(max_length=100, blank=True, null=True)
+    licence_number = models.CharField(max_length=100, blank=True, null=True)
+
+    def __str__(self):
+        return self.make
+
+    def validate_owner(self, owner):
+        if self.owner.ProfileCustomUser.role == 'BOTH' or self.owner.ProfileCustomUser.role == 'DRIVER':
+            return True
+        else:
+            return f'{self.owner} must be driver or both to create a car'
+
+
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         if not email:
@@ -85,6 +126,9 @@ class ProfileCustomUser(models.Model):
     num_permis = models.CharField(max_length=20, unique=True)
     role = models.CharField(max_length=10, choices=[(role.value, role.name) for role in UserRole])
     category = models.CharField(max_length=1, choices=CATEGORIES)
+    address = models.ForeignKey(Address, on_delete=models.CASCADE, related_name='addresses', default=None, blank=True, null=True)
+    car = models.ForeignKey(CarModel, on_delete=models.CASCADE, related_name='cars', default=None, blank=True, null=True)
+
     date_delivrance = models.DateField(default=timezone.now)
     date_expiration = models.DateField()
 
@@ -99,24 +143,6 @@ class ProfileCustomUser(models.Model):
         return birth_date
 
 
-class CarModel(models.Model):
-    owner = models.ForeignKey(ProfileCustomUser, on_delete=models.CASCADE, related_name='cars')
-    make = models.CharField(max_length=100, blank=True, null=True)
-    model = models.CharField(max_length=100, blank=True, null=True)
-    year = models.IntegerField(blank=True, null=True)
-    color = models.CharField(max_length=100, blank=True, null=True)
-    licence_number = models.CharField(max_length=100, blank=True, null=True)
-
-    def __str__(self):
-        return self.make
-
-    def validate_owner(self, owner):
-        if self.owner.ProfileCustomUser.role == 'BOTH' or self.owner.ProfileCustomUser.role == 'DRIVER':
-            return True
-        else:
-            return f'{self.owner} must be driver or both to create a car'
-
-
 class Notification(models.Model):
     pass
 
@@ -128,28 +154,3 @@ class Reclaim(models.Model):
 
     def __str__(self):
         pass
-
-
-class Address(models.Model):
-    position_name = models.CharField(max_length=100)
-    number = models.CharField(max_length=10, blank=True, null=True)
-    street = models.CharField(max_length=255, blank=True, null=True)
-    city = models.CharField(max_length=100)
-    region = models.CharField(max_length=100, blank=True, null=True)  # Région, état ou province
-    country = models.CharField(max_length=100)
-    postal_code = models.CharField(max_length=20, blank=True, null=True)  # Code postal
-    google_maps = models.URLField(blank=True, null=True)
-    type_of_address = models.CharField(max_length=10, blank=True, null=True,
-                                       choices=(('O', 'Office'), ('H', 'Home'), ('O', 'Other')))
-    author = models.ForeignKey(ProfileCustomUser, on_delete=models.CASCADE, related_name='addresses')
-
-    def __str__(self):
-        return f"{self.number} {self.street}, {self.city}, {self.region}, {self.country}"
-
-    class Meta:
-        indexes = (models.Index(fields=['position_name']),)
-        unique_together = (('number', 'street', 'city', 'region', 'country'),)
-        db_table = 'address'
-        verbose_name = 'Address'
-        verbose_name_plural = 'Addresses'
-        ordering = ['-position_name']
