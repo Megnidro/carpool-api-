@@ -23,6 +23,14 @@ class CarModelListCreateAPIView(ListCreateAPIView):
     serializer_class = CarModelSerializer
     permission_classes = [IsDriverOrBoth | IsAuthenticated]
 
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+        serializer.save()
+
+    def get_queryset(self):
+        # Retourne seulement les voitures de l'utilisateur connecté
+        return CarModel.objects.filter(user=self.request.user)
+
 
 class CarModelDetailAPIView(RetrieveUpdateDestroyAPIView):
     queryset = CarModel.objects.all()
